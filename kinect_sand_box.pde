@@ -1,5 +1,3 @@
-import boofcv.processing.*;
-
 // Daniel Shiffman
 // Depth thresholding example
 
@@ -27,6 +25,26 @@ int mountain3Depth =  mountain2Depth-delta;
 int mountain4Depth =  mountain3Depth-delta;
 int mountain5Depth =  mountain4Depth-delta;
 
+
+/*
+low to high
+1aa3da
+0191f1
+428870
+428870
+97c094
+d9eabd
+c3b086
+bf996c
+a66b33
+a55427
+8a3d2d
+914142
+
+
+
+
+*/
  
 
 
@@ -55,40 +73,50 @@ void draw() {
   for (int i=0; i < rawDepth.length; i++) {
     if (rawDepth[i] <= mountain5Depth ) {
       
-      depthImg.pixels[i] = color(255, 255, 255);
+      //depthImg.pixels[i] = color(255, 255, 255);
+      depthImg.pixels[i] = #a55427;
+
     } 
     else if (rawDepth[i] >= mountain5Depth && rawDepth[i] <= mountain4Depth) {
       
-      depthImg.pixels[i] = color(153, 51, 0);
+      //depthImg.pixels[i] = color(153, 51, 0);
+      depthImg.pixels[i] = #a66b33;
     } 
    else if (rawDepth[i] >= mountain4Depth && rawDepth[i] <= mountain3Depth) {
       
-      depthImg.pixels[i] = color(204, 153, 0);
+      //depthImg.pixels[i] = color(204, 153, 0);
+      depthImg.pixels[i] = #bf996c;
     } 
    else if (rawDepth[i] >= mountain3Depth && rawDepth[i] <= mountain2Depth) {
       
-      depthImg.pixels[i] = color(204, 102, 0);
+      //depthImg.pixels[i] = color(204, 102, 0);
+      depthImg.pixels[i] = #c3b086;
     } 
    else if (rawDepth[i] >= mountain2Depth && rawDepth[i] <= mountain1Depth) {
       
-      depthImg.pixels[i] = color(80,88,35);
+      //depthImg.pixels[i] = color(80,88,35);
+      depthImg.pixels[i] = #d9eabd;
     } 
    else if (rawDepth[i] >= mountain1Depth && rawDepth[i] <= valleyDepth) {
       
-      depthImg.pixels[i] = color(104,212,43);
+      //depthImg.pixels[i] = color(104,212,43);
+      depthImg.pixels[i] = #97c094;
     } 
    else if (rawDepth[i] >= valleyDepth && rawDepth[i] <= sandDepth) {
       
-      depthImg.pixels[i] = color(204, 102, 0);
+      //depthImg.pixels[i] = color(204, 102, 0);
+      depthImg.pixels[i] = #428870;
     } 
    else if (rawDepth[i] >= sandDepth && rawDepth[i] <= waterDepth) {
       
       //depthImg.pixels[i] = color(0,0,255);
-      depthImg.pixels[i] = color(235,170,65);
+      //depthImg.pixels[i] = color(235,170,65);
+      depthImg.pixels[i] = #0191f1;
     } 
    else if (rawDepth[i] >= waterDepth) {
       
-      depthImg.pixels[i] = color(0,0,255);
+      //depthImg.pixels[i] = color(0,0,255);
+      depthImg.pixels[i] = #1aa3da;
     } 
     
     else {
