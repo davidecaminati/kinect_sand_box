@@ -14,9 +14,9 @@ Kinect kinect;
 
 // Depth image
 PImage depthImg;
-int delta = 10;
+int delta = 4;
 // Which pixels do we care about?
-int waterDepth = 700;
+int waterDepth = 860;
 int sandDepth =  waterDepth-delta;
 int valleyDepth =  sandDepth -delta;
 int mountain1Depth =  valleyDepth-delta;
@@ -24,38 +24,19 @@ int mountain2Depth =  mountain1Depth-delta;
 int mountain3Depth =  mountain2Depth-delta;
 int mountain4Depth =  mountain3Depth-delta;
 int mountain5Depth =  mountain4Depth-delta;
+int mountain6Depth =  mountain5Depth-delta;
 
 
-/*
-low to high
-1aa3da
-0191f1
-428870
-428870
-97c094
-d9eabd
-c3b086
-bf996c
-a66b33
-a55427
-8a3d2d
-914142
-
-
-
-
-*/
- 
-
-
-//int colors[2] = (100,100,100,200,200,200);
 
 // What is the kinect's angle
 float angle;
 
-void setup() {
-  size(1280/2, 480);
+boolean sketchFullScreen() {
+  return true;
+}
 
+void setup() {
+  size(displayWidth, displayHeight, P3D); 
   kinect = new Kinect(this);
   kinect.initDepth();
   angle = kinect.getTilt();
@@ -71,71 +52,52 @@ void draw() {
   // Threshold the depth image
   int[] rawDepth = kinect.getRawDepth();
   for (int i=0; i < rawDepth.length; i++) {
-    if (rawDepth[i] <= mountain5Depth ) {
-      
-      //depthImg.pixels[i] = color(255, 255, 255);
+    if (rawDepth[i] <= mountain6Depth ) {
+      depthImg.pixels[i] = #ffffff;
+    } 
+    else if (rawDepth[i] >= mountain6Depth && rawDepth[i] <= mountain5Depth) {
       depthImg.pixels[i] = #a55427;
-
     } 
     else if (rawDepth[i] >= mountain5Depth && rawDepth[i] <= mountain4Depth) {
-      
-      //depthImg.pixels[i] = color(153, 51, 0);
       depthImg.pixels[i] = #a66b33;
     } 
    else if (rawDepth[i] >= mountain4Depth && rawDepth[i] <= mountain3Depth) {
-      
-      //depthImg.pixels[i] = color(204, 153, 0);
       depthImg.pixels[i] = #bf996c;
     } 
    else if (rawDepth[i] >= mountain3Depth && rawDepth[i] <= mountain2Depth) {
-      
-      //depthImg.pixels[i] = color(204, 102, 0);
-      depthImg.pixels[i] = #c3b086;
+      depthImg.pixels[i] = #0f5e33;
     } 
    else if (rawDepth[i] >= mountain2Depth && rawDepth[i] <= mountain1Depth) {
-      
-      //depthImg.pixels[i] = color(80,88,35);
-      depthImg.pixels[i] = #d9eabd;
+      depthImg.pixels[i] = #299d39;
     } 
    else if (rawDepth[i] >= mountain1Depth && rawDepth[i] <= valleyDepth) {
-      
-      //depthImg.pixels[i] = color(104,212,43);
       depthImg.pixels[i] = #97c094;
     } 
    else if (rawDepth[i] >= valleyDepth && rawDepth[i] <= sandDepth) {
-      
-      //depthImg.pixels[i] = color(204, 102, 0);
-      depthImg.pixels[i] = #428870;
+      depthImg.pixels[i] = #d9eabd;
     } 
    else if (rawDepth[i] >= sandDepth && rawDepth[i] <= waterDepth) {
-      
-      //depthImg.pixels[i] = color(0,0,255);
-      //depthImg.pixels[i] = color(235,170,65);
       depthImg.pixels[i] = #0191f1;
     } 
    else if (rawDepth[i] >= waterDepth) {
-      
-      //depthImg.pixels[i] = color(0,0,255);
-      depthImg.pixels[i] = #1aa3da;
+      depthImg.pixels[i] = #006397;
     } 
     
     else {
-      //depthImg.pixels[i] = color(255,255,255);
     }
-    //text("TILT: " + rawDepth[i] , 20, 40);
   }
 
   depthImg.filter(BLUR,2);
   // Draw the thresholded image
   depthImg.updatePixels();
-  //image(depthImg, kinect.width, 0);
 
-  //depthImg.filter(DILATE,7);
+  scale(2.6);
+  background(-1);
+  
+  translate(-120, -80);
   image(depthImg, 0, 0);
 
   fill(0);
-  //text("TILT: " + angle, 10, 20);
-  //text("THRESHOLD: [" + minDepth + ", " + maxDepth + "]", 10, 36);
 }
 
 // Adjust the angle and the depth threshold min and max
