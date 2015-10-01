@@ -7,6 +7,8 @@
 // Original example by Elie Zananiri
 // http://www.silentlycrashing.net
 
+// Modified by Davide Caminati 30/9/2015
+
 import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
 
@@ -16,7 +18,8 @@ Kinect kinect;
 PImage depthImg;
 int delta = 4;
 // Which pixels do we care about?
-int waterDepth = 860;
+int waterDepth = 860;  // use this to set the height 
+
 int sandDepth =  waterDepth-delta;
 int valleyDepth =  sandDepth -delta;
 int mountain1Depth =  valleyDepth-delta;
@@ -90,10 +93,10 @@ void draw() {
   // Draw the thresholded image
   depthImg.updatePixels();
 
-  scale(2.6);
+  scale(2.6); // use this to crop the image
   background(-1);
   
-  translate(-120, -80);
+  translate(-120, -80); // use this to crop the image
   image(depthImg, 0, 0);
 
   fill(0);
