@@ -48,7 +48,6 @@ void setup() {
 void draw() {
   // Draw the raw image
   image(kinect.getDepthImage(), 0, 0);
-  int val = 0;
   // Threshold the depth image
   int[] rawDepth = kinect.getRawDepth();
   for (int i=0; i < rawDepth.length; i++) {
